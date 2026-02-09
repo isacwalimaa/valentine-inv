@@ -214,7 +214,6 @@ export default function App() {
     <div className="container">
       {!yes ? (
         <>
-          <h1>Hej</h1>
 
           <p>
             Arthur ville jättegärna hänga med dig på alla hjärtans dag
