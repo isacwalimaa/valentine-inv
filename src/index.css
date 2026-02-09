@@ -1,4 +1,5 @@
-/* Grundlayout + stjärnig bakgrund */
+/* RESET / BAS */
+
 *,
 *::before,
 *::after {
@@ -7,26 +8,23 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #f5f5ff;
 
-  /* Mörk, mjuk rymdgradient */
   background:
     radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08), transparent 60%),
     radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.06), transparent 55%),
     radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.05), transparent 55%),
     radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.07), transparent 60%),
     linear-gradient(135deg, #0b1020, #111827, #1f2937);
-
-  /* små stjärnor */
   background-attachment: fixed;
 }
 
-/* Ev. extra stjärnor (valfritt, kan tas bort om det blir för mycket) */
 body::before {
   content: "";
   position: fixed;
@@ -42,9 +40,8 @@ body::before {
   z-index: -1;
 }
 
-/* Kortet i mitten */
 .container {
-  background: rgba(17, 24, 39, 0.92); /* mörk, semitransparent */
+  background: rgba(17, 24, 39, 0.92);
   padding: 2.5rem 2.8rem;
   border-radius: 24px;
   max-width: 420px;
@@ -76,7 +73,7 @@ p {
   font-size: 0.98rem;
 }
 
-/* Intro- och mellan-texter */
+/* Fade-text används för intro/efter-texter */
 .fade-text {
   animation: fade 6s ease-in-out;
   color: #e5e7ff;
@@ -108,13 +105,13 @@ p {
 }
 
 /* Knappar */
+
 .buttons-wrapper {
   position: relative;
   margin-top: 1.6rem;
-  height: 90px; /* yta där Nej-knappen kan flytta sig */
+  height: 90px;
 }
 
-/* Ja-knapp – subtil gradient, mjuk hover */
 .yes-btn {
   padding: 10px 22px;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
@@ -144,7 +141,6 @@ p {
   box-shadow: 0 8px 18px rgba(79, 70, 229, 0.5);
 }
 
-/* Nej-knapp – mer neutral men ändå klickbar */
 .no-btn {
   padding: 9px 18px;
   background: rgba(15, 23, 42, 0.9);
@@ -161,283 +157,12 @@ p {
   z-index: 1;
 }
 
-/* Flyga iväg-animation */
 .no-btn.fly-away {
   animation: flyAway 0.8s ease-out forwards;
 }
 
-/* Typografi småjusteringar i “ja”-scenen */
-.container h1 + p {
-  margin-top: 0.6rem;
-}
-
-.arthur-img {
-  margin-top: 1.5rem;
-  max-width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  object-fit: cover;
-}
-
-/* ANIMATIONER */
-
-/* Chat-bubblan skakar lite när den "tänker" */
-.bubble-shake {
-  animation: bubbleShake 0.4s ease-in-out infinite alternate;
-}
-
-@keyframes bubbleShake {
-  0% {
-    transform: translateX(-1px);
-  }
-  50% {
-    transform: translateX(1px);
-  }
-  100% {
-    transform: translateX(-1px);
-  }
-}
-
-/* Explosion-screen */
-.explosion-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.explosion-circle {
-  position: absolute;
-  width: 40vmax;
-  height: 40vmax;
-  border-radius: 50%;
-  background: radial-gradient(circle, #facc15, #f97316, #ef4444);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  animation: explosionScale 1s ease-out forwards;
-  box-shadow: 0 0 80px rgba(248, 250, 252, 0.8);
-}
-
-.explosion-text {
-  position: relative;
-  font-size: 2.4rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.5rem;
-  animation: explosionText 1.2s ease-out forwards;
-}
-
-.explosion-subtext {
-  position: relative;
-  font-size: 0.95rem;
-  opacity: 0;
-  animation: explosionSubtext 1.2s ease-out forwards;
-  animation-delay: 0.4s;
-}
-
-@keyframes explosionScale {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0.2;
-  }
-  60% {
-    transform: translate(-50%, -50%) scale(1.05);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes explosionText {
-  0% {
-    transform: scale(0.2) rotate(-10deg);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1) rotate(4deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-
-@keyframes explosionSubtext {
-  0% {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Lite överdriven “Dunder”-inzoomning */
-.dunder-text {
-  animation: dunderPop 0.9s ease-out;
-}
-
-/* Lite glitch-ish känsla på introt */
-.intro-container {
-  position: relative;
-}
-
-.intro-glitch {
-  position: relative;
-  animation: fade 6s ease-in-out, introGlitch 0.8s ease-in-out 0.3s;
-}
-
-@keyframes introGlitch {
-  0% {
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(-1px, 0);
-  }
-  40% {
-    transform: translate(2px, -1px);
-  }
-  60% {
-    transform: translate(-2px, 1px);
-  }
-  80% {
-    transform: translate(1px, -1px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-.sms-text {
-  font-style: italic;
-  opacity: 0.9;
-}
-
-/* Chat-bubblan skakar lite när den "tänker" */
-.bubble-shake {
-  animation: bubbleShake 0.4s ease-in-out infinite alternate;
-}
-
-@keyframes bubbleShake {
-  0% {
-    transform: translateX(-1px);
-  }
-  50% {
-    transform: translateX(1px);
-  }
-  100% {
-    transform: translateX(-1px);
-  }
-}
-
-/* Interlude – töntig loading */
-.interlude-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.interlude-title {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  text-transform: lowercase;
-  opacity: 0.9;
-}
-
-.interlude-bar {
-  width: 80%;
-  max-width: 260px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.6);
-  overflow: hidden;
-  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
-}
-
-.interlude-bar-fill {
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(90deg, #4ade80, #22c55e, #a3e635);
-  border-radius: inherit;
-  animation: interludeBar 1.6s ease-in-out infinite;
-}
-
-@keyframes interludeBar {
-  0% {
-    transform: translateX(-80%);
-  }
-  50% {
-    transform: translateX(40%);
-  }
-  100% {
-    transform: translateX(120%);
-  }
-}
-
-.interlude-stars {
-  margin-top: 0.8rem;
-  display: flex;
-  gap: 6px;
-  font-size: 1rem;
-  opacity: 0.8;
-}
-
-.interlude-stars span:nth-child(1) {
-  animation: starBlink 1s infinite alternate;
-}
-.interlude-stars span:nth-child(2) {
-  animation: starBlink 1s infinite alternate 0.2s;
-}
-.interlude-stars span:nth-child(3) {
-  animation: starBlink 1s infinite alternate 0.4s;
-}
-
-@keyframes starBlink {
-  0% { opacity: 0.3; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1.1); }
-}
-
-/* Explosion-screen (vid ouii) */
-.explosion-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.explosion-circle {
-  position: absolute;
-  width: 40vmax;
-  height: 40vmax;
-  border-radius: 50%;
-  background: radial-gradient(circle, #facc15, #f97316, #ef4444);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  animation: explosionScale 1s ease-out forwards;
-  box-shadow: 0 0 80px rgba(248, 250, 252, 0.8);
-}
-
-.explosion-text {
-  position: relative;
-  font-size: 2.4rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.5rem;
-  animation: explosionText 1.2s ease-out forwards;
-}
-
-.explosion-subtext {
-  position: relative;
-  font-size: 0.95rem;
-  opacity: 0;
-  animation: explosionSubtext 1.2s ease-out forwards;
-  animation-delay: 0.4s;
-}
-
 /* Boot / första loading-skärmen */
+
 .boot-container {
   display: flex;
   flex-direction: column;
@@ -473,7 +198,8 @@ p {
   animation: bootBar 1.4s ease-in-out infinite;
 }
 
-/* Cringe-meter mellan boot och intro */
+/* Cringe-/nörd-mätare */
+
 .cringe-container {
   display: flex;
   flex-direction: column;
@@ -505,7 +231,7 @@ p {
   border-radius: inherit;
   background: linear-gradient(90deg, #22c55e, #eab308, #ef4444);
   width: 0%;
-  animation: cringeFill 4s forwards;
+  animation: cringeFill 2s forwards;
 }
 
 .cringe-labels {
@@ -518,106 +244,125 @@ p {
   margin-top: 0.4rem;
 }
 
-@keyframes cringeFill {
-  0% {
-    width: 0%;
-  }
-  40% {
-    width: 30%;
-  }
-  70% {
-    width: 65%;
-  }
-  100% {
-    width: 100%;
-  }
+/* Intro glitch */
+
+.intro-container {
+  position: relative;
 }
 
-@keyframes bootBar {
-  0% {
-    transform: translateX(-80%);
-  }
-  50% {
-    transform: translateX(20%);
-  }
-  100% {
-    transform: translateX(120%);
-  }
+.intro-glitch {
+  position: relative;
+  animation: fade 6s ease-in-out, introGlitch 0.8s ease-in-out 0.3s;
 }
 
-@keyframes explosionScale {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0.2;
-  }
-  60% {
-    transform: translate(-50%, -50%) scale(1.05);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
+.sms-text {
+  font-style: italic;
+  opacity: 0.9;
 }
 
-@keyframes explosionText {
-  0% {
-    transform: scale(0.2) rotate(-10deg);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1) rotate(4deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
+/* Chat-bubblan skakar lite när den "tänker" */
+.bubble-shake {
+  animation: bubbleShake 0.4s ease-in-out infinite alternate;
 }
 
-@keyframes explosionSubtext {
-  0% {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+/* Interlude – “analyserar läget” */
+
+.interlude-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Lite överdriven “Dunder”-inzoomning */
+.interlude-title {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  text-transform: lowercase;
+  opacity: 0.9;
+}
+
+.interlude-bar {
+  width: 80%;
+  max-width: 260px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.6);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+}
+
+.interlude-bar-fill {
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, #4ade80, #22c55e, #a3e635);
+  border-radius: inherit;
+  animation: interludeBar 1.6s ease-in-out infinite;
+}
+
+.interlude-stars {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 6px;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.interlude-stars span:nth-child(1) {
+  animation: starBlink 1s infinite alternate;
+}
+.interlude-stars span:nth-child(2) {
+  animation: starBlink 1s infinite alternate 0.2s;
+}
+.interlude-stars span:nth-child(3) {
+  animation: starBlink 1s infinite alternate 0.4s;
+}
+
+/* Explosion vid ouii */
+
+.explosion-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.explosion-circle {
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, #facc15, #f97316, #ef4444);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: explosionScale 1s ease-out forwards;
+  box-shadow: 0 0 80px rgba(248, 250, 252, 0.8);
+}
+
+.explosion-text {
+  position: relative;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  animation: explosionText 1.2s ease-out forwards;
+}
+
+.explosion-subtext {
+  position: relative;
+  font-size: 0.95rem;
+  opacity: 0;
+  animation: explosionSubtext 1.2s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+/* Dunder/Toppp */
+
 .dunder-text {
   animation: dunderPop 0.9s ease-out;
 }
 
-@keyframes dunderPop {
-  0% {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-}
+/* HELSKÄRMS spräckt skärm */
 
-@keyframes dunderPop {
-  0% {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-}
+
+/* --- ANIMATIONER --- */
 
 @keyframes blink {
   0%, 50%, 100% { opacity: 1; }
@@ -643,7 +388,51 @@ p {
   }
 }
 
-/* FlyAway – lite mer subtil än tidigare */
+@keyframes bootBar {
+  0% {
+    transform: translateX(-80%);
+  }
+  50% {
+    transform: translateX(20%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes cringeFill {
+  0% { width: 0%; }
+  40% { width: 30%; }
+  70% { width: 65%; }
+  100% { width: 100%; }
+}
+
+@keyframes introGlitch {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-1px, 0); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-2px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes bubbleShake {
+  0% { transform: translateX(-1px); }
+  50% { transform: translateX(1px); }
+  100% { transform: translateX(-1px); }
+}
+
+@keyframes interludeBar {
+  0% { transform: translateX(-80%); }
+  50% { transform: translateX(40%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes starBlink {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.1); }
+}
+
 @keyframes flyAway {
   0% {
     transform: translate(0, 0) rotate(0deg) scale(1);
@@ -658,5 +447,373 @@ p {
   100% {
     transform: translate(120px, -130px) rotate(10deg) scale(0.94);
     opacity: 0.75;
+  }
+}
+
+@keyframes explosionScale {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.2;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes explosionText {
+  0% { transform: scale(0.2) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(1.1) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes explosionSubtext {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes dunderPop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes screenFlash {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+@keyframes screenCrackBig {
+  0% {
+    opacity: 0;
+    transform: scale(1.3);
+    filter: blur(4px);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes screenBreakText {
+  0% { transform: scale(0.4) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes screenBreakSubtext {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0.95; }
+}
+
+@keyframes screenShake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-4px, -2px); }
+  40% { transform: translate(3px, 3px); }
+  60% { transform: translate(-3px, 2px); }
+  80% { transform: translate(2px, -3px); }
+  100% { transform: translate(0, 0); }
+}
+
+.screen-break-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #020617;
+  overflow: hidden;
+}
+
+.screen-break-inner {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+  animation: screenShake 0.5s ease-in-out;
+}
+
+/* "glas"-lager som spricker */
+.screen-break-glass {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06), transparent 55%);
+  opacity: 0;
+  animation: glassFadeIn 0.2s ease-out forwards;
+}
+
+/* sprick-linjer från mitten utåt */
+.crack-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120vmax;        /* långa linjer över hela skärmen */
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(248, 250, 252, 0.9),
+    transparent
+  );
+  transform-origin: center center;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(248, 250, 252, 0.8));
+  animation: crackAppear 0.45s ease-out forwards;
+}
+
+/* olika vinklar för linjerna */
+.crack-1 { transform: translate(-50%, -50%) rotate(10deg);  }
+.crack-2 { transform: translate(-50%, -50%) rotate(-20deg); }
+.crack-3 { transform: translate(-50%, -50%) rotate(45deg);  }
+.crack-4 { transform: translate(-50%, -50%) rotate(-60deg); }
+.crack-5 { transform: translate(-50%, -50%) rotate(0deg);   }
+.crack-6 { transform: translate(-50%, -50%) rotate(90deg);  }
+.crack-7 { transform: translate(-50%, -50%) rotate(135deg); }
+.crack-8 { transform: translate(-50%, -50%) rotate(-110deg); }
+
+/* små fragment nära mitten */
+.crack-frag {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(248, 250, 252, 0.6);
+  box-shadow: 0 0 10px rgba(248, 250, 252, 0.4);
+  opacity: 0;
+  animation: fragAppear 0.4s ease-out forwards;
+}
+
+.frag-1 {
+  top: calc(50% - 24px);
+  left: calc(50% - 24px);
+}
+.frag-2 {
+  top: calc(50% - 40px);
+  left: calc(50% + 20px);
+}
+.frag-3 {
+  top: calc(50% + 10px);
+  left: calc(50% - 50px);
+}
+
+/* text ovanpå sprickorna */
+.screen-break-text {
+  position: relative;
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  text-align: center;
+  z-index: 1;
+  animation: screenBreakText 0.6s ease-out forwards;
+}
+
+.screen-break-subtext {
+  position: relative;
+  font-size: 0.95rem;
+  opacity: 0;
+  z-index: 1;
+  animation: screenBreakSubtext 0.6s ease-out forwards;
+  animation-delay: 0.25s;
+}
+
+/* --- keyframes för sprucken skärm --- */
+
+@keyframes glassFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes crackAppear {
+  0% {
+    opacity: 0;
+    transform: scale(1.05) translate(-50%, -50%);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(1.02) translate(-50%, -50%);
+  }
+}
+
+@keyframes fragAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes screenBreakText {
+  0% { transform: scale(0.7); opacity: 0; }
+  70% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes screenBreakSubtext {
+  0% { transform: translateY(8px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0.95; }
+}
+
+@keyframes screenShake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-4px, -2px); }
+  40% { transform: translate(3px, 3px); }
+  60% { transform: translate(-3px, 2px); }
+  80% { transform: translate(2px, -3px); }
+  100% { transform: translate(0, 0); }
+}
+/* HELSKÄRMS TV "NO SIGNAL" OVERLAY */
+
+.tv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #f9fafb;
+}
+
+/* Brus/“static” */
+.tv-static {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.18) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 4px 4px, 3px 3px;
+  opacity: 0.25;
+  animation: tvStaticMove 0.5s steps(2) infinite;
+}
+
+/* Färgade test-bars */
+.tv-test-bars {
+  position: relative;
+  width: 70vw;
+  max-width: 600px;
+  height: 40vh;
+  max-height: 260px;
+  background:
+    linear-gradient(
+      to right,
+      #f87171 0%,
+      #f87171 14%,
+      #facc15 14%,
+      #facc15 28%,
+      #4ade80 28%,
+      #4ade80 42%,
+      #60a5fa 42%,
+      #60a5fa 56%,
+      #a855f7 56%,
+      #a855f7 70%,
+      #f97316 70%,
+      #f97316 84%,
+      #e5e7eb 84%,
+      #e5e7eb 100%
+    );
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 4px #111827,
+    0 0 40px rgba(0,0,0,0.9);
+  overflow: hidden;
+}
+
+/* Liten horisontell bar längst ned, som i klassiska testbilder */
+.tv-test-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  width: 100%;
+  height: 18px;
+  background:
+    linear-gradient(
+      to right,
+      #0f172a 0%,
+      #0f172a 12%,
+      #e5e7eb 12%,
+      #e5e7eb 24%,
+      #111827 24%,
+      #111827 36%,
+      #e5e7eb 36%,
+      #e5e7eb 48%,
+      #0f172a 48%,
+      #0f172a 60%,
+      #e5e7eb 60%,
+      #e5e7eb 72%,
+      #111827 72%,
+      #111827 84%,
+      #e5e7eb 84%,
+      #e5e7eb 100%
+    );
+}
+
+/* Texten ovanpå */
+.tv-label {
+  position: absolute;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: 0 0 8px #000;
+  top: 50%;
+  transform: translateY(-60%);
+}
+
+.tv-sub {
+  position: absolute;
+  bottom: 18%;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Static/brus-animation */
+@keyframes tvStaticMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-5px, -3px);
+  }
+  50% {
+    transform: translate(3px, 4px);
+  }
+  75% {
+    transform: translate(-2px, 2px);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }

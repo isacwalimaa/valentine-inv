@@ -18,8 +18,11 @@ export default function App() {
   // Boot / fake loading i början
   const [showBoot, setShowBoot] = useState(true);
 
-  // Cringe-meter direkt efter boot
+  // Nörd-mätare direkt efter boot
   const [showCringeMeter, setShowCringeMeter] = useState(false);
+
+  // Sprucken skärm efter nörd-mätaren
+  const [showScreenBreak, setShowScreenBreak] = useState(false);
 
   // Intro fade
   const [introIndex, setIntroIndex] = useState(0);
@@ -56,20 +59,30 @@ export default function App() {
     if (!showBoot) return;
     const timer = setTimeout(() => {
       setShowBoot(false);
-      setShowCringeMeter(true); // efter boot → cringe-meter
+      setShowCringeMeter(true); // efter boot → nörd-mätare
     }, 6000);
     return () => clearTimeout(timer);
   }, [showBoot]);
 
-  // Cringe-meter
+  // Nörd-mätare
   useEffect(() => {
     if (!showCringeMeter) return;
     const timer = setTimeout(() => {
       setShowCringeMeter(false);
-      setShowIntro(true); // efter cringe-meter → intro-texter
-    }, 6000); // hur länge cringe-meter visas
+      setShowScreenBreak(true); // efter nörd-mätare → sprucken skärm
+    }, 6000);
     return () => clearTimeout(timer);
   }, [showCringeMeter]);
+
+  // Sprucken skärm
+  useEffect(() => {
+    if (!showScreenBreak) return;
+    const timer = setTimeout(() => {
+      setShowScreenBreak(false);
+      setShowIntro(true); // efter sprick-animation → intro-texter
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [showScreenBreak]);
 
   // Intro fade
   useEffect(() => {
@@ -161,7 +174,7 @@ export default function App() {
     }
   }, [afterChatIndex, showAfterChat]);
 
-  // Interlude – lite töntig "thinking" skärm
+  // Interlude – “analyserar läget...”
   useEffect(() => {
     if (!showInterlude) return;
 
@@ -218,7 +231,7 @@ export default function App() {
     );
   }
 
-  // Cringe-meter
+  // Nörd-mätare
   if (showCringeMeter) {
     return (
       <div className="container cringe-container">
@@ -234,6 +247,18 @@ export default function App() {
       </div>
     );
   }
+
+  // Spräckt skärm / HEL SKÄRM
+if (showScreenBreak) {
+  return (
+    <div className="tv-overlay">
+      <div className="tv-static" />
+      <div className="tv-test-bars" />
+      <div className="tv-label">NO SIGNAL</div>
+      <div className="tv-sub">försöker få ordning på frågan...</div>
+    </div>
+  );
+}
 
   // Intro
   if (showIntro) {
