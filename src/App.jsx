@@ -2,30 +2,34 @@ import { useEffect, useState } from "react";
 
 const introTexts = [
   "Hej Charlotte",
-  "Jag har en grej jag vill fråga dig...",
-  "Och det handlar lite om Arthur 🐶",
+  "Jag fastnade i en grej...",
+  "Och tänkte att du kanske kan hjälpa"
 ];
 
-const smsIntroText = "Först tänkte jag bara skicka ett sms...";
-const firstText = "Vill du bli min valentin? // Arthur";
+const smsIntroText = "Först tänkte jag bara skicka ett sms.";
+const firstText = "Vill du hänga med mig(och Arthur) på alla hjärtans dag?";
 
-// Fade-texter efter chatten
 const afterChatTexts = [
-  "Men jag ville göra det på ett lite roligare sätt...",
-  "Så..."
+  "Men ville göra det lite roligare",
+  "Sååå...."
 ];
 
 export default function App() {
+  // Boot / fake loading i början
+  const [showBoot, setShowBoot] = useState(true);
+
+  // Cringe-meter direkt efter boot
+  const [showCringeMeter, setShowCringeMeter] = useState(false);
+
   // Intro fade
   const [introIndex, setIntroIndex] = useState(0);
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
 
   // SMS-Intro
   const [showSmsIntro, setShowSmsIntro] = useState(false);
 
   // Chat typing
   const [displayText, setDisplayText] = useState("");
-  // typing1 -> pause -> deleting -> done
   const [phase, setPhase] = useState("typing1");
   const [showChat, setShowChat] = useState(false);
 
@@ -33,13 +37,39 @@ export default function App() {
   const [showAfterChat, setShowAfterChat] = useState(false);
   const [afterChatIndex, setAfterChatIndex] = useState(0);
 
-  // Huvudinbjudan
+  // Dramatic interlude
+  const [showInterlude, setShowInterlude] = useState(false);
+
+  // Huvudinbjudan / svar
   const [yes, setYes] = useState(false);
+
+  // “explosions”-screen efter ouii
+  const [showExplosion, setShowExplosion] = useState(false);
 
   // "Nej"-knappen animation & position
   const [noFlying, setNoFlying] = useState(false);
-  const [hasMoved, setHasMoved] = useState(false); // har den flyttat sig minst en gång?
-  const [noPos, setNoPos] = useState({ top: 0, left: 0 }); // används först efter första flygningen
+  const [hasMoved, setHasMoved] = useState(false);
+  const [noPos, setNoPos] = useState({ top: 0, left: 0 });
+
+  // --- Boot / fake loading ---
+  useEffect(() => {
+    if (!showBoot) return;
+    const timer = setTimeout(() => {
+      setShowBoot(false);
+      setShowCringeMeter(true); // efter boot → cringe-meter
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, [showBoot]);
+
+  // Cringe-meter
+  useEffect(() => {
+    if (!showCringeMeter) return;
+    const timer = setTimeout(() => {
+      setShowCringeMeter(false);
+      setShowIntro(true); // efter cringe-meter → intro-texter
+    }, 6000); // hur länge cringe-meter visas
+    return () => clearTimeout(timer);
+  }, [showCringeMeter]);
 
   // Intro fade
   useEffect(() => {
@@ -48,13 +78,13 @@ export default function App() {
     if (introIndex < introTexts.length - 1) {
       const timer = setTimeout(() => {
         setIntroIndex((prev) => prev + 1);
-      }, 4000);
+      }, 3500);
       return () => clearTimeout(timer);
     } else {
       const timer = setTimeout(() => {
         setShowIntro(false);
-        setShowSmsIntro(true); // visa SMS-intro först
-      }, 4000);
+        setShowSmsIntro(true);
+      }, 3500);
       return () => clearTimeout(timer);
     }
   }, [introIndex, showIntro]);
@@ -65,8 +95,8 @@ export default function App() {
 
     const timer = setTimeout(() => {
       setShowSmsIntro(false);
-      setShowChat(true); // starta chat-animation
-    }, 3000); // visa SMS-intro i 3 sek
+      setShowChat(true);
+    }, 2500);
     return () => clearTimeout(timer);
   }, [showSmsIntro]);
 
@@ -76,44 +106,38 @@ export default function App() {
 
     let timer;
 
-    // Skriv första texten
     if (phase === "typing1" && displayText.length < firstText.length) {
       timer = setTimeout(() => {
         setDisplayText(firstText.slice(0, displayText.length + 1));
-      }, 80);
+      }, 70);
     }
 
-    // När första texten är klar: kort paus
     if (phase === "typing1" && displayText.length === firstText.length) {
-      timer = setTimeout(() => setPhase("pause"), 1500);
+      timer = setTimeout(() => setPhase("pause"), 1600);
     }
 
-    // Pausfas → börja sudda
     if (phase === "pause") {
-      timer = setTimeout(() => setPhase("deleting"), 800);
+      timer = setTimeout(() => setPhase("deleting"), 700);
     }
 
-    // Sudda ut texten
     if (phase === "deleting" && displayText.length > 0) {
       timer = setTimeout(() => {
         setDisplayText(displayText.slice(0, -1));
-      }, 40);
+      }, 35);
     }
 
-    // När allt är borttaget → done
     if (phase === "deleting" && displayText.length === 0) {
       timer = setTimeout(() => {
         setPhase("done");
       }, 500);
     }
 
-    // När chatten är helt klar → stäng chatten, starta efterChat-fade
     if (phase === "done" && showChat) {
       timer = setTimeout(() => {
-        setShowChat(false);      // göm chatten
-        setShowAfterChat(true);  // visa efterChat-texter
+        setShowChat(false);
+        setShowAfterChat(true);
         setAfterChatIndex(0);
-      }, 800); // liten paus efter att allt suddats ut
+      }, 700);
     }
 
     return () => clearTimeout(timer);
@@ -126,23 +150,32 @@ export default function App() {
     if (afterChatIndex < afterChatTexts.length - 1) {
       const timer = setTimeout(() => {
         setAfterChatIndex((prev) => prev + 1);
-      }, 3000); // hur länge varje text visas
+      }, 2800);
       return () => clearTimeout(timer);
     } else {
       const timer = setTimeout(() => {
-        setShowAfterChat(false); // klart, visa huvudinbjudan
-      }, 3000);
+        setShowAfterChat(false);
+        setShowInterlude(true);
+      }, 2800);
       return () => clearTimeout(timer);
     }
   }, [afterChatIndex, showAfterChat]);
 
-  // Slumpa fram en ny position i knapplayouten
+  // Interlude – lite töntig "thinking" skärm
+  useEffect(() => {
+    if (!showInterlude) return;
+
+    const timer = setTimeout(() => {
+      setShowInterlude(false);
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, [showInterlude]);
+
   const getRandomNoPosition = () => {
-    // Begränsa så den håller sig ungefär i området runt knapparna
-    const maxTop = 80;   // px neråt
-    const minTop = -40;  // px uppåt
-    const maxLeft = 140; // px höger
-    const minLeft = -140; // px vänster
+    const maxTop = 80;
+    const minTop = -40;
+    const maxLeft = 140;
+    const minLeft = -140;
 
     const top = Math.floor(Math.random() * (maxTop - minTop + 1)) + minTop;
     const left = Math.floor(Math.random() * (maxLeft - minLeft + 1)) + minLeft;
@@ -150,27 +183,63 @@ export default function App() {
     return { top, left };
   };
 
-  // Klick på "Nej" – trigga flyg-animation, sedan landa på ny plats
   const handleNoClick = () => {
-    if (noFlying) return; // förhindra spam medan den flyger
+    if (noFlying) return;
 
     setNoFlying(true);
 
-    // Efter animationen: uppdatera position och avsluta flyg
     setTimeout(() => {
       setNoPos(getRandomNoPosition());
       setNoFlying(false);
-      setHasMoved(true); // från och med nu är knappen "flygande"
-    }, 800); // samma som animationens längd i CSS
+      setHasMoved(true);
+    }, 800);
+  };
+
+  const handleYesClick = () => {
+    setShowExplosion(true);
+    setTimeout(() => {
+      setShowExplosion(false);
+      setYes(true);
+    }, 1800);
   };
 
   // ---- RENDER ----
 
+  // Boot / fake loading först
+  if (showBoot) {
+    return (
+      <div className="container boot-container">
+        <div className="boot-title">startar frågan...</div>
+        <div className="boot-subtitle">laddar mod, testar töntnivå</div>
+        <div className="boot-bar">
+          <div className="boot-bar-fill" />
+        </div>
+      </div>
+    );
+  }
+
+  // Cringe-meter
+  if (showCringeMeter) {
+    return (
+      <div className="container cringe-container">
+        <div className="cringe-title">nörd-mätare</div>
+        <div className="cringe-bar">
+          <div className="cringe-bar-fill" />
+        </div>
+        <div className="cringe-labels">
+          <span>lugn</span>
+          <span>mm...</span>
+          <span>oj då</span>
+        </div>
+      </div>
+    );
+  }
+
   // Intro
   if (showIntro) {
     return (
-      <div className="container">
-        <h1 key={introIndex} className="fade-text">
+      <div className="container intro-container">
+        <h1 key={introIndex} className="fade-text intro-glitch">
           {introTexts[introIndex]}
         </h1>
       </div>
@@ -181,7 +250,7 @@ export default function App() {
   if (showSmsIntro) {
     return (
       <div className="container">
-        <p className="fade-text">{smsIntroText}</p>
+        <p className="fade-text sms-text">{smsIntroText}</p>
       </div>
     );
   }
@@ -190,7 +259,7 @@ export default function App() {
   if (showChat) {
     return (
       <div className="container">
-        <div className="chat-bubble">
+        <div className={`chat-bubble ${phase === "typing1" ? "bubble-shake" : ""}`}>
           {displayText}
           <span className="cursor" />
         </div>
@@ -209,29 +278,54 @@ export default function App() {
     );
   }
 
-  // Huvudinbjudan
+  // Interlude – “analyserar läget...”
+  if (showInterlude) {
+    return (
+      <div className="container interlude-container">
+        <div className="interlude-title">analyserar läget...</div>
+        <div className="interlude-bar">
+          <div className="interlude-bar-fill" />
+        </div>
+        <div className="interlude-stars">
+          <span>*</span>
+          <span>*</span>
+          <span>*</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Explosion-screen efter ouii
+  if (showExplosion) {
+    return (
+      <div className="container explosion-container">
+        <div className="explosion-circle" />
+        <div className="explosion-text">BOOM</div>
+        <div className="explosion-subtext"></div>
+      </div>
+    );
+  }
+
+  // Huvudinbjudan / svar
   return (
     <div className="container">
       {!yes ? (
         <>
-
           <p>
-            Arthur ville jättegärna hänga med dig på alla hjärtans dag
+            Något enkelt! Mat, något glas, och massa skitsnack.
           </p>
 
           <p>
-            Så om du inte har något bättre för dig, så skulle det vara superkul om du ville bli vår valentin!
+            Hade varit kul!!
           </p>
 
           <h2>Vad säger du?</h2>
 
-          {/* Relativ container för nej-knappens flygzon */}
           <div className="buttons-wrapper">
-            <button className="yes-btn" onClick={() => setYes(true)}>
+            <button className="yes-btn" onClick={handleYesClick}>
               ouii
             </button>
 
-            {/* Nej-knapp: vanlig layout först, absolut position först efter första flygningen */}
             <button
               className={`no-btn ${noFlying ? "fly-away" : ""}`}
               onClick={handleNoClick}
@@ -247,18 +341,14 @@ export default function App() {
                     }
               }
             >
-              Nej 😈 (testa tryck på mig)
+              Nä, usch
             </button>
           </div>
         </>
       ) : (
         <>
-          <h1>Dunder!!!!!</h1>
-          <img
-          src="/ar.jpg"       // ligger i public/arthur.png
-          alt="Arthur"
-          className="arthur-img"
-        />
+          <h1 className="dunder-text">Toppp</h1>
+          <p className="dunder-subtext">Kan höras närmre inpå!!</p>
         </>
       )}
     </div>

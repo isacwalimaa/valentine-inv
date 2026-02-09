@@ -182,6 +182,443 @@ p {
 
 /* ANIMATIONER */
 
+/* Chat-bubblan skakar lite när den "tänker" */
+.bubble-shake {
+  animation: bubbleShake 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes bubbleShake {
+  0% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(1px);
+  }
+  100% {
+    transform: translateX(-1px);
+  }
+}
+
+/* Explosion-screen */
+.explosion-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.explosion-circle {
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, #facc15, #f97316, #ef4444);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: explosionScale 1s ease-out forwards;
+  box-shadow: 0 0 80px rgba(248, 250, 252, 0.8);
+}
+
+.explosion-text {
+  position: relative;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  animation: explosionText 1.2s ease-out forwards;
+}
+
+.explosion-subtext {
+  position: relative;
+  font-size: 0.95rem;
+  opacity: 0;
+  animation: explosionSubtext 1.2s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes explosionScale {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.2;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes explosionText {
+  0% {
+    transform: scale(0.2) rotate(-10deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1) rotate(4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes explosionSubtext {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Lite överdriven “Dunder”-inzoomning */
+.dunder-text {
+  animation: dunderPop 0.9s ease-out;
+}
+
+/* Lite glitch-ish känsla på introt */
+.intro-container {
+  position: relative;
+}
+
+.intro-glitch {
+  position: relative;
+  animation: fade 6s ease-in-out, introGlitch 0.8s ease-in-out 0.3s;
+}
+
+@keyframes introGlitch {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-1px, 0);
+  }
+  40% {
+    transform: translate(2px, -1px);
+  }
+  60% {
+    transform: translate(-2px, 1px);
+  }
+  80% {
+    transform: translate(1px, -1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.sms-text {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Chat-bubblan skakar lite när den "tänker" */
+.bubble-shake {
+  animation: bubbleShake 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes bubbleShake {
+  0% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(1px);
+  }
+  100% {
+    transform: translateX(-1px);
+  }
+}
+
+/* Interlude – töntig loading */
+.interlude-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.interlude-title {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  text-transform: lowercase;
+  opacity: 0.9;
+}
+
+.interlude-bar {
+  width: 80%;
+  max-width: 260px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.6);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+}
+
+.interlude-bar-fill {
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, #4ade80, #22c55e, #a3e635);
+  border-radius: inherit;
+  animation: interludeBar 1.6s ease-in-out infinite;
+}
+
+@keyframes interludeBar {
+  0% {
+    transform: translateX(-80%);
+  }
+  50% {
+    transform: translateX(40%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.interlude-stars {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 6px;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.interlude-stars span:nth-child(1) {
+  animation: starBlink 1s infinite alternate;
+}
+.interlude-stars span:nth-child(2) {
+  animation: starBlink 1s infinite alternate 0.2s;
+}
+.interlude-stars span:nth-child(3) {
+  animation: starBlink 1s infinite alternate 0.4s;
+}
+
+@keyframes starBlink {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Explosion-screen (vid ouii) */
+.explosion-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.explosion-circle {
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, #facc15, #f97316, #ef4444);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: explosionScale 1s ease-out forwards;
+  box-shadow: 0 0 80px rgba(248, 250, 252, 0.8);
+}
+
+.explosion-text {
+  position: relative;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  animation: explosionText 1.2s ease-out forwards;
+}
+
+.explosion-subtext {
+  position: relative;
+  font-size: 0.95rem;
+  opacity: 0;
+  animation: explosionSubtext 1.2s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+/* Boot / första loading-skärmen */
+.boot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boot-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.boot-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 1.2rem;
+}
+
+.boot-bar {
+  width: 80%;
+  max-width: 260px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.7);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.5);
+}
+
+.boot-bar-fill {
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #22c55e, #facc15);
+  border-radius: inherit;
+  animation: bootBar 1.4s ease-in-out infinite;
+}
+
+/* Cringe-meter mellan boot och intro */
+.cringe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cringe-title {
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+  text-transform: lowercase;
+}
+
+.cringe-bar {
+  width: 80%;
+  max-width: 260px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.7);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.6);
+  position: relative;
+}
+
+.cringe-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22c55e, #eab308, #ef4444);
+  width: 0%;
+  animation: cringeFill 4s forwards;
+}
+
+.cringe-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 260px;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-top: 0.4rem;
+}
+
+@keyframes cringeFill {
+  0% {
+    width: 0%;
+  }
+  40% {
+    width: 30%;
+  }
+  70% {
+    width: 65%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes bootBar {
+  0% {
+    transform: translateX(-80%);
+  }
+  50% {
+    transform: translateX(20%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes explosionScale {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.2;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes explosionText {
+  0% {
+    transform: scale(0.2) rotate(-10deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1) rotate(4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes explosionSubtext {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Lite överdriven “Dunder”-inzoomning */
+.dunder-text {
+  animation: dunderPop 0.9s ease-out;
+}
+
+@keyframes dunderPop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dunderPop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @keyframes blink {
   0%, 50%, 100% { opacity: 1; }
   25%, 75% { opacity: 0; }
