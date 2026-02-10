@@ -15,6 +15,10 @@ const afterChatTexts = [
 ];
 
 export default function App() {
+
+  useEffect(() => {
+    document.title = 'En liten inbjudan'
+  }, [])
   // Boot / fake loading i början
   const [showBoot, setShowBoot] = useState(true);
 
